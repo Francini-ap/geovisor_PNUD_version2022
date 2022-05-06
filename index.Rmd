@@ -103,7 +103,7 @@ mar_genero_canton<-
 
 ods_unidos<-
   st_read(
-    "https://francini-ap.github.io/capas_visor_tfg_2022/ods_unidos.geojson",
+    "https://francini-ap.github.io/capas_visor_tfg_2022/ods_unidos_3.geojson",
     quiet = TRUE
   )
 
@@ -173,7 +173,7 @@ filtrarRegistros <- reactive({
  
 
  
-Colum {data-height=400}
+Colum {data-height=300}
 -----------------------------------------------------------------------
 
 ### Área geográfica por proyecto
@@ -264,7 +264,7 @@ leaflet() %>%
 
 ```
 
-Column {data-height=800}
+Column {data-height=100}
 -----------------------------------------------------------------------
 
 
@@ -277,7 +277,7 @@ renderDT({
   
   registros %>%
     st_drop_geometry() %>%
-   datatable(rownames= FALSE, filter= "top", class= "hover cell-border stripe", colnames = c( "Nombre proyecto", "Marcador género","Nombre donante","Presupuesto dólares ($)","Acción en los ODS"), options = list (language = list (url = "//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json"),pageLength = 8, dom = "Bfrtip"))
+   datatable(rownames= FALSE, filter= "top", class= "hover cell-border stripe", colnames = c( "Proyecto", "Marcador género","Donante","Presupuesto ($)","Acción  ODS"), options = list (language = list (url = "//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json"),pageLength = 5, dom = "Bfrtip"))
 })
 ```
 
@@ -321,13 +321,13 @@ pal10 <- colorBin("YlGn", domain = proyectos_x_ac$num_proyec, bins = bins10)
 # Mapa leaflet con capas de los Indicadores geográficos
  
     
-leaflet() %>%
-  setView(lng = -84.19452,
+ leaflet() %>%
+    setView(lng = -83.79452, # el centro está en -84.19452
             lat = 9.572735,
-            zoom = 8) %>%
+            zoom = 7) %>%
   addTiles(group = "OSM (default)") %>%
   addProviderTiles(providers$CartoDB.Positron, group = "Carto BD")%>%
-  addProviderTiles(providers$Esri.WorldImagery, group = "Esri World Imagery") %>%
+  
   
   addTiles() %>%# Overlay groups
   addPolygons (
@@ -367,7 +367,8 @@ leaflet() %>%
     values = proyectos_x_ac$num_proyec,
     opacity = 1,
     title = "N° proyectos por AC",
-    position = "bottomleft"
+    position = "bottomleft",
+    group = "Cantidad proyectos por AC"
   )%>%
 
   addPolygons (
@@ -403,7 +404,8 @@ leaflet() %>%
     values = proyectos_x_mideplan$num_proyec,
     opacity = 1,
     title = "N°proyectos-regiones MIDEPLAN",
-    position = "bottomleft"
+    position = "bottomleft",
+    group = "Cantidad proyecto por Región MIDEPLAN"
   )%>%
   
   addPolygons (
@@ -438,8 +440,9 @@ leaflet() %>%
     pal = pal3,
     values = proyectos_x_canton$num_proyec,
     opacity = 1,
-    title = "N proyectos por cantón",
-    position = "bottomleft"
+    title = "N° proyectos por cantón",
+    position = "bottomleft",
+    group = "Cantidad proyectos por cantón"
   )%>%
   
   addPolygons (
@@ -470,7 +473,8 @@ leaflet() %>%
     values = mar_genero_canton$gen0,
     opacity = 1,
     title = "N° proyectos Gen 0",
-    position = "bottomleft"
+    position = "bottomleft",
+    group = "Marcador GEN0:Cantones"
   )%>%
   addPolygons (
     data = mar_genero_canton,
@@ -495,6 +499,14 @@ leaflet() %>%
         mar_genero_canton$gen1
       )
     ) %>%
+   addLegend(
+    pal = pal4,
+    values = mar_genero_canton$gen1,
+    opacity = 1,
+    title = "N° proyectos Gen 1",
+    position = "bottomright",
+    group = "Marcador GEN1:Cantones"
+  )%>%
   
   addPolygons (
     data = mar_genero_canton,
@@ -519,6 +531,14 @@ leaflet() %>%
         mar_genero_canton$gen2
       )
     ) %>%
+   addLegend(
+    pal = pal5,
+    values = mar_genero_canton$gen2,
+    opacity = 1,
+    title = "N° proyectos Gen 2",
+    position = "bottomright",
+    group = "Marcador GEN2:Cantones"
+  )%>%
   
   addPolygons (
     data = mar_genero_canton,
@@ -543,31 +563,28 @@ leaflet() %>%
         mar_genero_canton$gen3
       )
     ) %>%
+   addLegend(
+    pal = pal6,
+    values = mar_genero_canton$gen3,
+    opacity = 1,
+    title = "N° proyectos Gen 3",
+    position = "bottomright",
+    group = "Marcador GEN3:Cantones"
+  )%>%
   
  addLayersControl(
    baseGroups = c("OSM", "Esri World Imagery"), 
    overlayGroups = c("Cantidad proyectos por AC", "Cantidad proyecto por Región MIDEPLAN", "Cantidad proyectos por cantón", "Marcador GEN0:Cantones","Marcador GEN1:Cantones","Marcador GEN2:Cantones","Marcador GEN3:Cantones"),
-   options = layersControlOptions(collapsed = FALSE,  autoZIndex = TRUE))%>% 
-addMeasure(
-    position = "topleft",
-    primaryLengthUnit = "meters",
-    primaryAreaUnit = "sqmeters",
-    activeColor = "#3D535D",
-    completedColor = "#7D4479")%>%
-  addProviderTiles(providers$Esri.WorldStreetMap) %>%
-	  addMiniMap(
-		tiles = providers$Esri.WorldStreetMap,
-		toggleDisplay = TRUE)%>%
- addScaleBar("bottomright") %>%
- addResetMapButton() %>%
- addSearchOSM()%>% 
- addMouseCoordinates()
+   options = layersControlOptions(collapsed = TRUE,  autoZIndex = FALSE))%>% 
 
-
-    
-
+ addScaleBar(position = "bottomleft",
+                options = scaleBarOptions(imperial = FALSE)) %>%
+    addMouseCoordinates() %>%
+    addSearchOSM() %>%
+    addResetMapButton()
 
 ```
+
 Indicadores ODS
 =======================================================================
 
@@ -625,10 +642,10 @@ pal14 <- colorBin("OrRd", domain = ods_unidos$num_ods9, bins = bins14)
     leaflet() %>%
       setView(lng = -84.19452,
                 lat = 9.572735,
-                zoom = 8) %>%
+                zoom = 7) %>%
       addTiles(group = "OSM (default)") %>%
       addProviderTiles(providers$CartoDB.Positron, group = "Carto BD")%>%
-      addProviderTiles(providers$Esri.WorldImagery, group = "Esri World Imagery") %>%
+      
       addTiles() %>%
     # Overlay groups
       addPolygons (
@@ -653,7 +670,15 @@ pal14 <- colorBin("OrRd", domain = ods_unidos$num_ods9, bins = bins14)
             "<strong>N° proyectos: </strong>",
            ods_unidos$num_ods1
           )
-        ) %>%
+      ) %>%
+      addLegend(
+        pal = pal,
+        values = ods_unidos$num_ods1,
+        opacity = 1,
+        title = "N° proyectos ODS 1",
+        position = "bottomright",
+        group = "N° proyectos ODS 1 por cantón"
+      )%>%
       addPolygons (
         data = ods_unidos,
         group = "N° proyectos ODS 5 por cantón",
@@ -968,22 +993,12 @@ pal14 <- colorBin("OrRd", domain = ods_unidos$num_ods9, bins = bins14)
     addLayersControl(
        baseGroups = c("OSM", "Esri World Imagery"), 
        overlayGroups = c("N° proyectos ODS 1 por cantón","N° proyectos ODS 5 por cantón","N° proyectos ODS 6 por cantón","N° proyectos ODS 7 por cantón","N° proyectos ODS 8 por cantón","N° proyectos ODS 9 por cantón", "N° proyectos ODS 10 por cantón","N° proyectos ODS 11 por cantón","N° proyectos ODS 12 por cantón","N° proyectos ODS 13 por cantón","N° proyectos ODS 14 por cantón","N° proyectos ODS 15 por cantón","N° proyectos ODS 16 por cantón","N° proyectos ODS 17 por cantón" ),
-       options = layersControlOptions(collapsed = FALSE,  autoZIndex = TRUE))%>% 
-    addMeasure(
-        position = "topleft",
-        primaryLengthUnit = "meters",
-        primaryAreaUnit = "sqmeters",
-        activeColor = "#3D535D",
-        completedColor = "#7D4479")%>%
-      addProviderTiles(providers$Esri.WorldStreetMap) %>%
-    	  addMiniMap(
-    		tiles = providers$Esri.WorldStreetMap,
-    		toggleDisplay = TRUE)%>%
-      addScaleBar("bottomright") %>%
-     addResetMapButton() %>%
-     addSearchOSM()%>% 
-     addMouseCoordinates()
-    
+       options = layersControlOptions(collapsed = TRUE,  autoZIndex = TRUE))%>% 
+   addScaleBar(position = "bottomleft",
+                options = scaleBarOptions(imperial = FALSE)) %>%
+    addMouseCoordinates() %>%
+    addSearchOSM() %>%
+    addResetMapButton()
 
 
 

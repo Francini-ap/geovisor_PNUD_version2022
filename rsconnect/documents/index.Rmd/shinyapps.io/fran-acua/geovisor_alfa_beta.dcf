@@ -1,0 +1,13 @@
+name: geovisor_alfa_beta
+title: geovisor_alfa_beta
+username:
+account: fran-acua
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 6236948
+bundleId: 5875804
+url: https://fran-acua.shinyapps.io/geovisor_alfa_beta/
+when: 1651807500.03288
+lastSyncTime: 1651807500.03288
+asMultiple: FALSE
+asStatic: FALSE
