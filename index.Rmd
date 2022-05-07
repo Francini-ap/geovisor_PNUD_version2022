@@ -103,7 +103,7 @@ mar_genero_canton<-
 
 ods_unidos<-
   st_read(
-    "https://francini-ap.github.io/capas_visor_tfg_2022/ods_unidos_3.geojson",
+    "https://francini-ap.github.io/capas_visor_tfg_2022/ods_unidos_2.geojson",
     quiet = TRUE
   )
 
@@ -319,7 +319,7 @@ pal10 <- colorBin("YlGn", domain = proyectos_x_ac$num_proyec, bins = bins10)
 
 
 # Mapa leaflet con capas de los Indicadores geográficos
- 
+map <- 
     
  leaflet() %>%
     setView(lng = -83.79452, # el centro está en -84.19452
@@ -583,6 +583,9 @@ pal10 <- colorBin("YlGn", domain = proyectos_x_ac$num_proyec, bins = bins10)
     addSearchOSM() %>%
     addResetMapButton()
 
+map %>% hideGroup ("Marcador GEN3:Cantones")
+
+
 ```
 
 Indicadores ODS
@@ -638,6 +641,8 @@ pal14 <- colorBin("OrRd", domain = ods_unidos$num_ods9, bins = bins14)
 
 
 # Mapa leaflet  con capas de los Indicadores ODS
+
+map <- 
 
     leaflet() %>%
       setView(lng = -84.19452,
@@ -702,6 +707,15 @@ pal14 <- colorBin("OrRd", domain = ods_unidos$num_ods9, bins = bins14)
            ods_unidos$num_ods5
           )
         ) %>%
+      addLegend(
+        pal = pal2,
+        values = ods_unidos$num_ods5,
+        opacity = 1,
+        title = "N° proyectos ODS 5",
+        position = "bottomright",
+        group = "N° proyectos ODS 5 por cantón"
+      )%>%
+  
       addPolygons (
         data = ods_unidos,
         group = "N° proyectos ODS 6 por cantón",
@@ -725,6 +739,14 @@ pal14 <- colorBin("OrRd", domain = ods_unidos$num_ods9, bins = bins14)
           ods_unidos$num_ods6
           )
         ) %>%
+   addLegend(
+        pal = pal6,
+        values = ods_unidos$num_ods6,
+        opacity = 3,
+        title = "N° proyectos ODS 6",
+        position = "bottomright",
+        group = "N° proyectos ODS 6 por cantón"
+      )%>%
     
       addPolygons (
         data = ods_unidos,
@@ -749,6 +771,14 @@ pal14 <- colorBin("OrRd", domain = ods_unidos$num_ods9, bins = bins14)
            ods_unidos$num_ods7
           )
         ) %>%
+       addLegend(
+        pal = pal3,
+        values = ods_unidos$num_ods7,
+        opacity = 1,
+        title = "N° proyectos ODS 7",
+        position = "bottomright",
+        group = "N° proyectos ODS 7 por cantón"
+      )%>%
       addPolygons (
         data = ods_unidos,
         group = "N° proyectos ODS 8 por cantón",
@@ -772,6 +802,14 @@ pal14 <- colorBin("OrRd", domain = ods_unidos$num_ods9, bins = bins14)
            ods_unidos$num_ods8
           )
         ) %>%
+      addLegend(
+        pal = pal5,
+        values = ods_unidos$num_ods8,
+        opacity = 1,
+        title = "N° proyectos ODS 8",
+        position = "bottomright",
+        group = "N° proyectos ODS 8 por cantón"
+      )%>%
       
       addPolygons (
         data = ods_unidos,
@@ -796,7 +834,14 @@ pal14 <- colorBin("OrRd", domain = ods_unidos$num_ods9, bins = bins14)
            ods_unidos$num_ods9
           )
         ) %>%
-       
+       addLegend(
+        pal = pal14,
+        values = ods_unidos$num_ods9,
+        opacity = 1,
+        title = "N° proyectos ODS 9",
+        position = "bottomright",
+        group = "N° proyectos ODS 9 por cantón"
+      )%>%
       addPolygons (
         data = ods_unidos,
         group = "N° proyectos ODS 10 por cantón",
@@ -820,6 +865,14 @@ pal14 <- colorBin("OrRd", domain = ods_unidos$num_ods9, bins = bins14)
            ods_unidos$num_ods10
           )
         ) %>%
+       addLegend(
+        pal = pal6,
+        values = ods_unidos$num_ods10,
+        opacity = 1,
+        title = "N° proyectos ODS 10",
+        position = "bottomleft",
+        group = "N° proyectos ODS 10 por cantón"
+      )%>%
       
       addPolygons (
         data = ods_unidos,
@@ -1000,7 +1053,7 @@ pal14 <- colorBin("OrRd", domain = ods_unidos$num_ods9, bins = bins14)
     addSearchOSM() %>%
     addResetMapButton()
 
-
+map %>% hideGroup ("N° proyectos ODS 17 por cantón")
 
 ```
 
