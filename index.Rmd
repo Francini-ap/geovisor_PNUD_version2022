@@ -583,7 +583,12 @@ map <-
     addSearchOSM() %>%
     addResetMapButton()
 
-map %>% hideGroup ("Marcador GEN3:Cantones")
+map %>% hideGroup ("Marcador GEN3:Cantones")%>%
+        hideGroup ("Marcador GEN2:Cantones")%>%
+        hideGroup ("Marcador GEN1:Cantones")%>%
+        hideGroup ("Marcador GEN0:Cantones")%>%
+        hideGroup ("Cantidad proyectos por cantón")%>%
+        hideGroup ("Cantidad proyecto por Región MIDEPLAN")
 
 
 ```
@@ -807,7 +812,7 @@ map <-
         values = ods_unidos$num_ods8,
         opacity = 1,
         title = "N° proyectos ODS 8",
-        position = "bottomright",
+        position = "bottomleft",
         group = "N° proyectos ODS 8 por cantón"
       )%>%
       
@@ -839,7 +844,7 @@ map <-
         values = ods_unidos$num_ods9,
         opacity = 1,
         title = "N° proyectos ODS 9",
-        position = "bottomright",
+        position = "bottomleft",
         group = "N° proyectos ODS 9 por cantón"
       )%>%
       addPolygons (
@@ -897,6 +902,14 @@ map <-
            ods_unidos$num_ods11
           )
         ) %>%
+      addLegend(
+            pal = pal7,
+            values = ods_unidos$num_ods11,
+            opacity = 1,
+            title = "N° proyectos ODS 11",
+            position = "bottomleft",
+            group = "N° proyectos ODS 11 por cantón"
+          )%>%
       
       addPolygons (
         data = ods_unidos,
@@ -921,6 +934,14 @@ map <-
            ods_unidos$num_ods12
           )
         ) %>%
+      addLegend(
+            pal = pal8,
+            values = ods_unidos$num_ods12,
+            opacity = 1,
+            title = "N° proyectos ODS 12",
+            position = "bottomleft",
+            group = "N° proyectos ODS 12 por cantón"
+          )%>%
       
       addPolygons (
         data = ods_unidos,
@@ -945,6 +966,14 @@ map <-
            ods_unidos$num_ods13
           )
         ) %>%
+      addLegend(
+            pal = pal9,
+            values = ods_unidos$num_ods13,
+            opacity = 1,
+            title = "N° proyectos ODS 13",
+            position = "bottomleft",
+            group = "N° proyectos ODS 13 por cantón"
+          )%>%
       
       addPolygons (
         data = ods_unidos,
@@ -967,9 +996,16 @@ map <-
             "<br>",
             "<strong>N°proyectos: </strong>",
            ods_unidos$num_ods14
-          
           )
         ) %>%
+      addLegend(
+            pal = pal10,
+            values = ods_unidos$num_ods14,
+            opacity = 1,
+            title = "N° proyectos ODS 14",
+            position = "bottomleft",
+            group = "N° proyectos ODS 14 por cantón"
+          )%>%
       
       addPolygons (
         data = ods_unidos,
@@ -994,6 +1030,14 @@ map <-
            ods_unidos$num_ods15
           )
         ) %>%
+      addLegend(
+            pal = pal11,
+            values = ods_unidos$num_ods15,
+            opacity = 1,
+            title = "N° proyectos ODS 15",
+            position = "bottomleft",
+            group = "N° proyectos ODS 15 por cantón"
+          )%>%
       
        addPolygons (
         data = ods_unidos,
@@ -1019,6 +1063,14 @@ map <-
             
           )
         ) %>%
+      addLegend(
+            pal = pal12,
+            values = ods_unidos$num_ods16,
+            opacity = 1,
+            title = "N° proyectos ODS 16",
+            position = "bottomleft",
+            group = "N° proyectos ODS 16 por cantón"
+          )%>%
       
       addPolygons (
         data = ods_unidos,
@@ -1043,6 +1095,14 @@ map <-
            ods_unidos$num_ods17
           )
         ) %>%
+  addLegend(
+            pal = pal13,
+            values = ods_unidos$num_ods17,
+            opacity = 1,
+            title = "N° proyectos ODS 17",
+            position = "bottomleft",
+            group = "N° proyectos ODS 17 por cantón"
+          )%>%
     addLayersControl(
        baseGroups = c("OSM", "Esri World Imagery"), 
        overlayGroups = c("N° proyectos ODS 1 por cantón","N° proyectos ODS 5 por cantón","N° proyectos ODS 6 por cantón","N° proyectos ODS 7 por cantón","N° proyectos ODS 8 por cantón","N° proyectos ODS 9 por cantón", "N° proyectos ODS 10 por cantón","N° proyectos ODS 11 por cantón","N° proyectos ODS 12 por cantón","N° proyectos ODS 13 por cantón","N° proyectos ODS 14 por cantón","N° proyectos ODS 15 por cantón","N° proyectos ODS 16 por cantón","N° proyectos ODS 17 por cantón" ),
@@ -1053,7 +1113,21 @@ map <-
     addSearchOSM() %>%
     addResetMapButton()
 
-map %>% hideGroup ("N° proyectos ODS 17 por cantón")
+map %>% hideGroup ("N° proyectos ODS 17 por cantón")%>% 
+        hideGroup ("N° proyectos ODS 16 por cantón")%>% 
+        hideGroup ("N° proyectos ODS 15 por cantón")%>% 
+        hideGroup ("N° proyectos ODS 14 por cantón")%>% 
+        hideGroup ("N° proyectos ODS 13 por cantón")%>% 
+        hideGroup ("N° proyectos ODS 12 por cantón")%>% 
+        hideGroup ("N° proyectos ODS 11 por cantón")%>% 
+        hideGroup ("N° proyectos ODS 10 por cantón")%>% 
+        hideGroup ("N° proyectos ODS 9 por cantón")%>% 
+        hideGroup ("N° proyectos ODS 8 por cantón")%>% 
+        hideGroup ("N° proyectos ODS 7 por cantón")%>% 
+        hideGroup ("N° proyectos ODS 6 por cantón")%>% 
+        hideGroup ("N° proyectos ODS 5 por cantón") 
+  
+  
 
 ```
 
